@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Layout with createElement</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f0f2f5; }
+    .header { background: #1a1a2e; color: white; padding: 1.5rem 2rem; }
+    .nav { display: flex; gap: 1.5rem; list-style: none; margin-top: 0.5rem; }
+    .nav a { color: #a0a0c0; text-decoration: none; font-size: 0.9rem; }
+    .main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    .content-card { background: white; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .content-card h2 { color: #1a1a2e; margin-bottom: 0.75rem; }
+    .content-card p { color: #555; line-height: 1.6; }
+    .footer { text-align: center; padding: 2rem; color: #888; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <script>
+    // Building a full page layout using only createElement
+    // No JSX yet - this shows what JSX compiles to
+
+    // Nav links
+    const navItems = ["Home", "About", "Blog", "Contact"];
+    const navLinks = navItems.map(item =>
+      React.createElement("a", { href: "#", key: item }, item)
+    );
+
+    const nav = React.createElement(
+      "ul",
+      { className: "nav" },
+      // Need to wrap links in list items
+      ...navItems.map(item =>
+        React.createElement("li", { key: item },
+          React.createElement("a", { href: "#" }, item)
+        )
+      )
+    );
+
+    const header = React.createElement(
+      "header",
+      { className: "header" },
+      React.createElement("h1", null, "My React Site"),
+      nav
+    );
+
+    // Content cards
+    const cards = [
+      { title: "What is React?", text: "React is a JavaScript library for building user interfaces. It lets you compose complex UIs from small, isolated pieces of code called components." },
+      { title: "Why React?", text: "Declarative, component-based, works with a virtual DOM for performance, huge ecosystem, and backed by Meta." },
+      { title: "createElement", text: "React.createElement is the core function. JSX is just syntactic sugar over it." }
+    ];
+
+    const contentCards = cards.map(({ title, text }) =>
+      React.createElement(
+        "div",
+        { className: "content-card", key: title },
+        React.createElement("h2", null, title),
+        React.createElement("p", null, text)
+      )
+    );
+
+    const main = React.createElement("main", { className: "main" }, ...contentCards);
+
+    const footer = React.createElement(
+      "footer",
+      { className: "footer" },
+      React.createElement("p", null, "Built with React.createElement")
+    );
+
+    const page = React.createElement(
+      React.Fragment,
+      null,
+      header,
+      main,
+      footer
+    );
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(page);
+  </script>
+</body>
+</html>

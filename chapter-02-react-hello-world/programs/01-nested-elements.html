@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nested Elements with React</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 2rem; background: #f8f9fa; }
+    .container { max-width: 600px; margin: 0 auto; }
+    .card { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    h1 { color: #1a1a2e; }
+    p { color: #555; line-height: 1.6; }
+    .highlight { background: #e8f4f8; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; color: #2d6a9f; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="root"></div>
+  </div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <script>
+    // Building nested HTML structure using only React.createElement
+    // In JSX this would be:
+    // <div className="card">
+    //   <h1>Hello React</h1>
+    //   <p>React is <span className="highlight">declarative</span></p>
+    // </div>
+
+    const heading = React.createElement("h1", null, "Hello React");
+
+    const highlight = React.createElement(
+      "span",
+      { className: "highlight" },
+      "declarative"
+    );
+
+    const paragraph = React.createElement(
+      "p",
+      null,
+      "React is ",
+      highlight,
+      " - you describe what you want, not how to do it."
+    );
+
+    const card = React.createElement(
+      "div",
+      { className: "card" },
+      heading,
+      paragraph
+    );
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(card);
+  </script>
+</body>
+</html>
