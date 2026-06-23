@@ -1,30 +1,16 @@
-/*
-* <div id ="parent">
-*       <div id ="chlid">
-*         <h1>I'm an h1 tag</h1>
-*          <h2>I'm an h2 tag</h2>
-*       </div>
-*</div>
-
-*       <div id ="chlid2">
-*         <h1>I'm an h1 tag</h1>
-*          <h2>I'm an h2 tag</h2>
-*       </div>
-*</div>
-
-ReactElement(object) => HTML(Browser Understands)
-*/
+import React from "react";
+import ReactDOM from "react-dom/client";
 
 const parent = React.createElement(
     "div",
     { id: "parent" },[
-        React.createElement("div",{ id: "child" },[
-        React.createElement("h1", {}, "I'm an h1 tag"),
-        React.createElement("h1", {}, "I'm an h2 tag"),
+        React.createElement("div",{ id: "child", key: "child1" },[
+        React.createElement("h1", {key: "1"}, "This is Namaste React"),
+        React.createElement("h1", {key: "2"}, "By Ankita"),
     ]),
-     React.createElement("div",{ id: "child2" },[
-        React.createElement("h1", {}, "I'm an h1 tag"),
-        React.createElement("h1", {}, "I'm an h2 tag"),
+     React.createElement("div",{ id: "child2", key: "child2" },[
+        React.createElement("h1", {key: "1"}, "I'm an h1 tag"),
+        React.createElement("h1", {key: "2"}, "I'm an h2 tag"),
     ]),
 
 ]);
